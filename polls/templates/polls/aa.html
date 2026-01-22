@@ -1,0 +1,38 @@
+<h2>aa 화면이 보이나?</h2>
+
+<h5>bb 화면 안보인다.</h5>
+
+<p>{{ latest_question_list }}</p>
+
+<h3>3번문제: 데이터 꺼내기</h3>
+
+{% for q in latest_question_list %}
+
+<p>모델 데이터 제목 가져오기 : {{ q.question_text }}</p>
+<p>데이터 아이디 꺼내기 : {{ q.id }}</p>
+<p>원형 데이터를 한개씩 꺼내기 : {{ q }}</p>
+<p>--------------------</p>
+
+{% endfor %}
+
+
+<h7>Choice 전체 출력</h7>
+
+{% for c in choice_list %}
+<p>{{ c.choice_text }}</p>
+{% endfor %}
+
+
+<h2>Question별 Choice 출력</h2>
+
+{% for q in question_list %}
+
+<p>질문: {{ q.question_text }}</p>
+
+{% for c in q.choice_set.all %}
+<p> - {{ c.choice_text }}</p>
+{% endfor %}
+
+<p>--------------------</p>
+
+{% endfor %}
