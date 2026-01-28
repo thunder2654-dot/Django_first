@@ -1,0 +1,37 @@
+{# templates/polls/detail.html #}
+{% extends "polls/base.html" %}
+
+{% block content %}
+<section class="card">
+  <h1>{{ question.question_text }}</h1>
+
+  {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+  {% endif %}
+
+  <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+      <div class="choice">
+        <label>
+          <input type="radio" name="choice" value="{{ choice.id }}">
+          {{ choice.choice_text }}
+        </label>
+      </div>
+    {% endfor %}
+
+    <div class="row-actions">
+      <button type="submit" class="btn primary">투표</button>
+      <a class="btn" href="{% url 'polls:results' question.id %}">결과</a>
+    </div>
+  </form>
+
+  <hr>
+
+  <div class="row-actions">
+    <a class="btn" href="{% url 'polls:question_update' question.id %}">질문 수정</a>
+    <a class="btn danger" href="{% url 'polls:question_delete' question.id %}">질문 삭제</a>
+    <a class="btn" href="{% url 'polls:index' %}">목록</a>
+  </div>
+</section>
+{% endblock %}

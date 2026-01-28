@@ -1,0 +1,17 @@
+{# templates/polls/question_confirm_delete.html #}
+{% extends "polls/base.html" %}
+
+{% block content %}
+<section class="card">
+  <h1>삭제 확인</h1>
+  <p>정말 삭제할래? → <strong>{{ object.question_text }}</strong></p>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="row-actions">
+      <button type="submit" class="btn danger">삭제</button>
+      <a href="{% url 'polls:index' %}" class="btn">취소</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

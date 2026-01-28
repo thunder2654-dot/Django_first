@@ -1,0 +1,19 @@
+{# templates/polls/question_form.html #}
+{% extends "polls/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="card">
+  <h1>{% if form.instance.pk %}질문 수정{% else %}질문 생성{% endif %}</h1>
+
+  <form method="post" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="row-actions">
+      <button type="submit" class="btn primary">저장</button>
+      <a href="{% url 'polls:index' %}" class="btn">취소</a>
+    </div>
+  </form>
+</section>
+{% endblock %}

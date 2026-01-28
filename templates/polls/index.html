@@ -1,0 +1,35 @@
+{% extends "polls/base.html" %}
+{% block content %}
+
+<div class="card">
+  <h1>최근 질문</h1>
+
+  <form method="get" class="search-bar" style="display:flex; gap:10px; justify-content:center; margin: 20px 0;">
+    <input
+      type="text"
+      name="q"
+      value="{{ request.GET.q }}"
+      placeholder="검색어 입력"
+      style="width: 320px; padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd;"
+    />
+    <select name="sort" style="padding: 10px 12px; border-radius: 10px; border: 1px solid #ddd;">
+      <option value="new" {% if request.GET.sort != "old" %}selected{% endif %}>최신순</option>
+      <option value="old" {% if request.GET.sort == "old" %}selected{% endif %}>오래된순</option>
+    </select>
+    <button type="submit" class="btn">적용</button>
+  </form>
+
+  {% if latest_question_list %}
+    <ul class="list">
+      {% for question in latest_question_list %}
+        <li class="list-item">
+          <a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No polls are available.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
